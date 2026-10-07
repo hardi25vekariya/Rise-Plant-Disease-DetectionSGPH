@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rice Plant Disease Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>🌾 Rice Plant Disease Detector</h1>
+        <p class="subtitle">Upload a rice leaf image — detect the disease at an early stage</p>
+
+        <form id="uploadForm">
+            <input type="file" id="imageInput" accept="image/*" required>
+            <button type="submit">Check Disease</button>
+        </form>
+
+        <div id="loading" class="hidden">Prediction ho raha hai...</div>
+
+        <div id="result" class="hidden">
+            <img id="previewImg" src="" alt="Uploaded leaf">
+            <h2 id="diseaseName"></h2>
+            <p id="confidence"></p>
+            <p id="infoText"></p>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('uploadForm');
+        const loading = document.getElementById('loading');
+        const resultDiv = document.getElementById('result');
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const fileInput = document.getElementById('imageInput');
+            if (!fileInput.files.length) return;
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            resultDiv.classList.add('hidden');
+            loading.classList.remove('hidden');
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                loading.classList.add('hidden');
+
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+
+                document.getElementById('previewImg').src = data.image_url;
+                document.getElementById('diseaseName').innerText = "Detected: " + data.disease;
+                document.getElementById('confidence').innerText = "Confidence: " + data.confidence + "%";
+                document.getElementById('infoText').innerText = data.info;
+                resultDiv.classList.remove('hidden');
+            } catch (err) {
+                loading.classList.add('hidden');
+                alert("Kuch error aaya: " + err);
+            }
+        });
+    </script>
+</body>
+
+</html>
