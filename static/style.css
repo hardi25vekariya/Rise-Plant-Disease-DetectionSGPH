@@ -1,0 +1,86 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f2f7f2;
+    display: flex;
+    justify-content: center;
+    padding: 40px 15px;
+}
+
+.container {
+    background: white;
+    max-width: 480px;
+    width: 100%;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+h1 {
+    color: #2e7d32;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+input[type="file"] {
+    border: 1px dashed #aaa;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+button {
+    background: #2e7d32;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #256428;
+}
+
+.hidden {
+    display: none;
+}
+
+#result img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+#diseaseName {
+    color: #c62828;
+    margin: 10px 0 4px;
+}
+
+#confidence {
+    color: #444;
+    font-weight: bold;
+}
+
+#infoText {
+    color: #555;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+#loading {
+    margin-top: 15px;
+    color: #2e7d32;
+    font-weight: bold;
+}
